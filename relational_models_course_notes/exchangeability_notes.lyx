@@ -1009,8 +1009,56 @@ jointly exchangeable
 ,
 \begin_inset Formula 
 \[
-\left\{ X_{ij}\right\} _{i,j\in\mathbb{N}}\eqdist\left\{ X_{\pi\left(i\right)\pi\left(j\right)}\right\} _{i,j\in\mathbb{N}}
+\left\{ X_{ij}\right\} _{i,j\in\mathbb{N}}\eqdist\left\{ X_{\pi\left(i\right)\pi\left(j\right)}\right\} _{i,j\in\mathbb{N}}.
 \]
+
+\end_inset
+
+A random graph is called jointly exchangeable if its adjacency matrix is
+ jointly exchangeable.
+ 
+\end_layout
+
+\begin_layout Definition
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename figures/exchange.pdf
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:exchange_graph"
+
+\end_inset
+
+This represents a particular permutation of the labels of the vertices of
+ a random graph.
+ If the distribution of the random graph is invariant under all such permutation
+s then it is jointly exchangeable.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
 
 \end_inset
 
@@ -1041,8 +1089,7 @@ To build some intuition we consider a series of examples:
 \begin_inset Formula $X_{ij}=(j-i)\mod2$
 \end_inset
 
- is not jointly exchangeable, since e.g.
- TODO: figure
+ is not jointly exchangeable.
 \end_layout
 
 \begin_layout --Separator--
@@ -1158,7 +1205,83 @@ graphon
 \end_inset
 
 .
- See TODO: figure
+ See figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:random_graph"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Definition
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename figures/graphon1.pdf
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:random_graph"
+
+\end_inset
+
+A pictorial representation of the construction of a 
+\begin_inset Formula $\Theta$
+\end_inset
+
+-random graph.
+ 
+\begin_inset Formula $\Theta$
+\end_inset
+
+ is defined on 
+\begin_inset Formula $\left[0,1\right]^{2}$
+\end_inset
+
+ with value indicated by greyscale value.
+ To determine the value of 
+\begin_inset Formula $X_{ij}$
+\end_inset
+
+ we select coordinates 
+\begin_inset Formula $U_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $U_{2}$
+\end_inset
+
+ then flip a weighted coin with weight 
+\begin_inset Formula $\Theta\left(U_{1},U_{2}\right)$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard

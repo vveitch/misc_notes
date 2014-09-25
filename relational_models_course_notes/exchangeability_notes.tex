@@ -6,6 +6,7 @@
 \usepackage{amsthm}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{graphicx}
 \usepackage{esint}
 \usepackage[unicode=true,pdfusetitle,
  bookmarks=true,bookmarksnumbered=false,bookmarksopen=false,
@@ -328,8 +329,23 @@ representation theorem as our goal for this section.
 A random array $X=\left\{ X_{ij}\right\} _{i,j\in\mathbb{N}}$ is
 \emph{jointly exchangeable} if for every permutation $\pi$ of $\mathbb{N}$,
 \[
-\left\{ X_{ij}\right\} _{i,j\in\mathbb{N}}\eqdist\left\{ X_{\pi\left(i\right)\pi\left(j\right)}\right\} _{i,j\in\mathbb{N}}
+\left\{ X_{ij}\right\} _{i,j\in\mathbb{N}}\eqdist\left\{ X_{\pi\left(i\right)\pi\left(j\right)}\right\} _{i,j\in\mathbb{N}}.
 \]
+A random graph is called jointly exchangeable if its adjacency matrix
+is jointly exchangeable. 
+
+\begin{figure}
+\begin{centering}
+\includegraphics{figures/exchange}
+\par\end{centering}
+
+\caption{\label{fig:exchange_graph}This represents a particular permutation
+of the labels of the vertices of a random graph. If the distribution
+of the random graph is invariant under all such permutations then
+it is jointly exchangeable.}
+
+
+\end{figure}
 
 \end{defn}
 To build some intuition we consider a series of examples:
@@ -339,8 +355,7 @@ distinct pair of units is disconnected.
 \end{example}
 
 \begin{example}
-$X_{ij}=(j-i)\mod2$ is not jointly exchangeable, since e.g. TODO:
-figure
+$X_{ij}=(j-i)\mod2$ is not jointly exchangeable.
 \end{example}
 
 \begin{example}
@@ -371,7 +386,20 @@ X_{ij}=1\mbox{ with probability }\Theta\left(U_{i},U_{j}\right)
 independently for all $i<j\in\mathbb{N}$. A \emph{$\Theta$-random
 graph} is an array with the same distribution as $X$. A \emph{graphon}
 is a symmetric measurable function from $\left[0,1\right]^{2}$ to
-$\left[0,1\right]$. See TODO: figure
+$\left[0,1\right]$. See figure \ref{fig:random_graph}.
+
+\begin{figure}
+\begin{centering}
+\includegraphics{figures/graphon1}
+\par\end{centering}
+
+\caption{\label{fig:random_graph}A pictorial representation of the construction
+of a $\Theta$-random graph. $\Theta$ is defined on $\left[0,1\right]^{2}$
+with value indicated by greyscale value. To determine the value of
+$X_{ij}$ we select coordinates $U_{1}$ and $U_{2}$ then flip a
+weighted coin with weight $\Theta\left(U_{1},U_{2}\right)$.}
+\end{figure}
+
 \end{defn}
 Example \ref{theta-random-ex} is an example of a $\Theta$-random
 graph, with 

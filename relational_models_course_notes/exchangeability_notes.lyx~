@@ -294,8 +294,8 @@ th day.
 
 .
  The physical content of this equation is that the absolute values of the
- labelling indices are not significant, only the distance between them matters;
- ie.
+ labeling indices are not significant, only the distance between them matters;
+ i.e.
  it does not matter if the calendar starts at day 
 \begin_inset Formula $0$
 \end_inset
@@ -354,7 +354,7 @@ x_{AB} & x_{BC} & x_{BB}
 
 \end_inset
 
-ie.
+i.e.
  that the distribution is invariant under swapping the labels 
 \begin_inset Formula $B$
 \end_inset
@@ -469,7 +469,7 @@ For all permutations
 \begin_inset Formula $A_{i}$
 \end_inset
 
- are measureable and 
+ are measurable and 
 \begin_inset Formula $\forall\pi\in S_{n}$
 \end_inset
 
@@ -741,7 +741,7 @@ and the corresponding random measures
 \end_inset
 
  are equal.
- This suggests an obvious cannonical choice of random variable to condition
+ This suggests an obvious canonical choice of random variable to condition
  on: the random measure 
 \begin_inset Formula $\nu$
 \end_inset
@@ -806,7 +806,7 @@ from which it is immediately manifest that
 
 \begin_deeper
 \begin_layout Enumerate
-X is exchangeable, ie.
+X is exchangeable, i.e.
  
 \begin_inset Formula $\left(X_{1},X_{2},\dots\right)\eqdist\left(X_{\pi\left(1\right)},X_{\pi\left(2\right)},\dots\right)\ \forall\pi\in S_{\infty}$
 \end_inset
@@ -815,7 +815,7 @@ X is exchangeable, ie.
 \end_layout
 
 \begin_layout Enumerate
-X is conditionally iid; ie.
+X is conditionally iid; i.e.
  there exists a random measure 
 \begin_inset Formula $\nu$
 \end_inset
@@ -879,7 +879,7 @@ th flip.
  be heads.
  However, an exchangeability assumption is reasonable: we will base our
  inferences on the number of observed heads and tails, but not on the order
- in which they occured.
+ in which they occurred.
  In the language of de Finetti's theorem we then have that
 \begin_inset Formula 
 \[
@@ -959,7 +959,7 @@ de Finetti's theorem can enable very powerful models even in cases where
 \end_inset
 
  lacks a simple form, or even a finite dimensional representation.
- Dirichlet process models (eg.
+ Dirichlet process models (e.g.
  DP mixture models) are a well developed example of this.
 \end_layout
 
@@ -1009,8 +1009,56 @@ jointly exchangeable
 ,
 \begin_inset Formula 
 \[
-\left\{ X_{ij}\right\} _{i,j\in\mathbb{N}}\eqdist\left\{ X_{\pi\left(i\right)\pi\left(j\right)}\right\} _{i,j\in\mathbb{N}}
+\left\{ X_{ij}\right\} _{i,j\in\mathbb{N}}\eqdist\left\{ X_{\pi\left(i\right)\pi\left(j\right)}\right\} _{i,j\in\mathbb{N}}.
 \]
+
+\end_inset
+
+A random graph is called jointly exchangeable if its adjacency matrix is
+ jointly exchangeable.
+ 
+\end_layout
+
+\begin_layout Definition
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename figures/exchange.pdf
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:exchange_graph"
+
+\end_inset
+
+This represents a particular permutation of the labels of the vertices of
+ a random graph.
+ If the distribution of the random graph is invariant under all such permutation
+s then it is jointly exchangeable.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
 
 \end_inset
 
@@ -1018,7 +1066,7 @@ jointly exchangeable
 \end_layout
 
 \begin_layout Standard
-To build some intution we consider a series of examples:
+To build some intuition we consider a series of examples:
 \end_layout
 
 \begin_layout Example
@@ -1041,8 +1089,7 @@ To build some intution we consider a series of examples:
 \begin_inset Formula $X_{ij}=(j-i)\mod2$
 \end_inset
 
- is not jointly exchangeable, since eg.
- TODO: figure
+ is not jointly exchangeable.
 \end_layout
 
 \begin_layout --Separator--
@@ -1158,7 +1205,83 @@ graphon
 \end_inset
 
 .
- See TODO: figure
+ See figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:random_graph"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Definition
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename figures/graphon1.pdf
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:random_graph"
+
+\end_inset
+
+A pictorial represenation of the construction of a 
+\begin_inset Formula $\Theta$
+\end_inset
+
+-random graph.
+ 
+\begin_inset Formula $\Theta$
+\end_inset
+
+ is defined on 
+\begin_inset Formula $\left[0,1\right]^{2}$
+\end_inset
+
+ with value indicated by greyscale value.
+ To determine the value of 
+\begin_inset Formula $X_{ij}$
+\end_inset
+
+ we select coordinates 
+\begin_inset Formula $U_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $U_{2}$
+\end_inset
+
+ then flip a weighted coin with weight 
+\begin_inset Formula $\Theta\left(U_{1},U_{2}\right)$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1219,7 +1342,7 @@ where
 \end_inset
 
 .
- This example makes it clear that the choice of uniformly random varibles
+ This example makes it clear that the choice of uniformly random variables
  in the definition of 
 \begin_inset Formula $\Theta$
 \end_inset
