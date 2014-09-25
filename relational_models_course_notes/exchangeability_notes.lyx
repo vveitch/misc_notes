@@ -1,0 +1,1217 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass article
+\begin_preamble
+% Borrowed from MIT 6.987 Advanced Data Structures course (Prof Demaine, 2003)
+
+
+\usepackage{amsthm}\usepackage{bm}\usepackage[usenames,dvipsnames]{xcolor}\usepackage{hypernat}
+
+\usepackage{tikz}\usepackage{tkz-graph}
+
+\newcommand{\handout}[5]{
+  \noindent
+  \begin{center}
+  \framebox{
+    \vbox{
+      \hbox to 5.78in { {\bf STA4513: Statistical Models of Networks } \hfill #2 }
+      \vspace{4mm}
+      \hbox to 5.78in { {\Large \hfill #5  \hfill} }
+      \vspace{2mm}
+      \hbox to 5.78in { {\em #3 \hfill #4} }
+    }
+  }
+  \end{center}
+  \vspace*{4mm}
+}
+
+\newcommand{\lecture}[4]{\handout{#1}{#2}{#3}{Scribe: #4}{Lecture #1}}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{observation}[theorem]{Observation}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{fact}[theorem]{Fact}
+\newtheorem{assumption}[theorem]{Assumption}
+
+% 1-inch margins, from fullpage.sty by H.Partl, Version 2, Dec. 15, 1988.
+\topmargin 0pt
+\advance \topmargin by -\headheight
+\advance \topmargin by -\headsep
+\textheight 8.9in
+\oddsidemargin 0pt
+\evensidemargin \oddsidemargin
+\marginparwidth 0.5in
+\textwidth 6.5in
+
+\parindent 0in
+\parskip 1.5ex
+%\renewcommand{\baselinestretch}{1.25}
+\end_preamble
+\use_default_options false
+\begin_modules
+theorems-ams
+theorems-ams-extended
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package none
+\inputencoding utf8
+\fontencoding default
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize 11
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder false
+\pdf_colorlinks false
+\pdf_backref section
+\pdf_pdfusetitle true
+\pdf_quoted_options "colorlinks,citecolor=blue,urlcolor=blue,linkcolor=blue"
+\papersize default
+\use_geometry false
+\use_amsmath 2
+\use_esint 1
+\use_mhchem 0
+\use_mathdots 0
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\eqdist}{\overset{d}{=}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+lecture{
+\end_layout
+
+\end_inset
+
+3 --- 24 September, 2014
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}{
+\end_layout
+
+\end_inset
+
+Fall 2014
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}{
+\end_layout
+
+\end_inset
+
+Prof.
+\begin_inset space \space{}
+\end_inset
+
+Daniel M.
+ Roy
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}{
+\end_layout
+
+\end_inset
+
+Victor Veitch
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Overview
+\end_layout
+
+\begin_layout Standard
+The topic of this lecture is exchangeability of random variables and the
+ associated representation theorems.
+ The flow of the lecture is roughly
+\end_layout
+
+\begin_layout Enumerate
+Introduce the concept of exchangeability for both sets of random variables
+ and arrays of random variables.
+\end_layout
+
+\begin_layout Enumerate
+Explain de Finetti's representation theorem for exchangeable sets of random
+ variables, and
+\end_layout
+
+\begin_layout Enumerate
+Explain the Aldous-Hoover representation theorem for exchangeable arrays.
+\end_layout
+
+\begin_layout Section
+Review of Exchangeability and Conditional Independence
+\end_layout
+
+\begin_layout Standard
+We begin with a few simple examples:
+\end_layout
+
+\begin_layout Example
+Suppose we wish to model the age, weight and height of individuals in a
+ population as a random variable; writing the random variable for the 
+\begin_inset Formula $i$
+\end_inset
+
+th individual as 
+\begin_inset Formula $X_{i}=\left(A_{i},H_{i},W_{i}\right)$
+\end_inset
+
+.
+ An (unqualified) independence assumption is probably not appropriate here:
+ if, for instance, we measure the heights of the first 
+\begin_inset Formula $100$
+\end_inset
+
+ individuals this information will impact our prediction of the height of
+ the 
+\begin_inset Formula $101$
+\end_inset
+
+st individual.
+ However, the sequence of random variables 
+\begin_inset Formula $X_{1},X_{2},\dots$
+\end_inset
+
+ can be assumed to be exchangeable in the sense that our inferences do not
+ depend on the order in which we observed the individuals.
+\end_layout
+
+\begin_layout --Separator--
+
+\end_layout
+
+\begin_layout Example
+If we wish to make inferences about the weather we might measure the peak
+ temperature and humidity each day, denoting these values for the 
+\begin_inset Formula $i$
+\end_inset
+
+th day as 
+\begin_inset Formula $X_{i}$
+\end_inset
+
+.
+ In this case an exchangeability assumption would not be appropriate because,
+ for instance, if we want to predict the temperature on the 
+\begin_inset Formula $21$
+\end_inset
+
+st day the temperature on the 
+\begin_inset Formula $20$
+\end_inset
+
+th day is relevant in a different way than the temperature on the 
+\begin_inset Formula $15$
+\end_inset
+
+th day.
+ However, it may be appropriate to assume a translation symmetry here: 
+\begin_inset Formula $\Pr\left(X_{1},X_{2},\dots\right)=\Pr\left(X_{k+1},X_{k+2},\dots\right)$
+\end_inset
+
+.
+ The physical content of this equation is that the absolute values of the
+ labelling indices are not significant, only the distance between them matters;
+ ie.
+ it does not matter if the calendar starts at day 
+\begin_inset Formula $0$
+\end_inset
+
+ or at day 
+\begin_inset Formula $k$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout --Separator--
+
+\end_layout
+
+\begin_layout Example
+If we model symmetric connections between people 
+\begin_inset Formula $i$
+\end_inset
+
+ and 
+\begin_inset Formula $j$
+\end_inset
+
+ as a random variable 
+\begin_inset Formula $X_{ij}$
+\end_inset
+
+ then it is reasonable to model the joint distribution of the observations
+ as invariant under joint permutations 
+\begin_inset Formula $\sigma$
+\end_inset
+
+ of the indices, 
+\begin_inset Formula $X_{ij}\rightarrow X_{\sigma\left(i\right),\sigma\left(j\right)}$
+\end_inset
+
+.
+ For instance, if we want to model the relationships between people 
+\begin_inset Formula $A,B,C$
+\end_inset
+
+ then this assumption would imply in particular:
+\begin_inset Formula 
+\[
+\Pr_{X}\left(\begin{array}{ccc}
+x_{AA} & x_{AB} & x_{AC}\\
+x_{AB} & x_{BB} & x_{BC}\\
+x_{AC} & x_{BC} & x_{CC}
+\end{array}\right)=\Pr_{X}\left(\begin{array}{ccc}
+x_{AA} & x_{AC} & x_{AB}\\
+x_{AB} & x_{CC} & x_{BC}\\
+x_{AB} & x_{BC} & x_{BB}
+\end{array}\right),
+\]
+
+\end_inset
+
+ie.
+ that the distribution is invariant under swapping the labels 
+\begin_inset Formula $B$
+\end_inset
+
+ and 
+\begin_inset Formula $C$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Example
+In this lecture we are interested in the types of probabilistic symmetry
+ present in the 
+\begin_inset Formula $1$
+\end_inset
+
+st and 
+\begin_inset Formula $3$
+\end_inset
+
+rd examples.
+ To that end we now give a more formal definition of exchangeability,
+\end_layout
+
+\begin_layout Definition*
+Let 
+\begin_inset Formula $X=\left(X_{1},X_{2},\dots\right)$
+\end_inset
+
+ be a set of random variables on a space 
+\begin_inset Formula $S$
+\end_inset
+
+,
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+Assume 
+\begin_inset Formula $S$
+\end_inset
+
+ is a Polish space if you're fussed about such things.
+\end_layout
+
+\end_inset
+
+ then we say that 
+\begin_inset Formula $X$
+\end_inset
+
+ is 
+\emph on
+exchangeable
+\emph default
+ when any of the following equivalent conditions hold:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+For all permutations 
+\begin_inset Formula $\pi:\mathbb{N}\rightarrow\mathbb{N}$
+\end_inset
+
+ it holds that 
+\begin_inset Formula $X_{1},X_{2},\dots\eqdist X_{\pi\left(1\right)},X_{\pi\left(2\right)},\dots$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $\forall n\in\mathbb{N}$
+\end_inset
+
+ and 
+\begin_inset Formula $\forall\pi\in S_{n}$
+\end_inset
+
+ the group of permutations of 
+\begin_inset Formula $[n]=\left\{ 1,\dots n\right\} $
+\end_inset
+
+ it holds that 
+\begin_inset Formula $X_{1},\dots,X_{n}\eqdist X_{\pi\left(1\right)},\dots,X_{\pi\left(n\right)}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $\forall n\in\mathbb{N}$
+\end_inset
+
+ and distinct 
+\begin_inset Formula $k_{1},\dots k_{n}\in\mathbb{N}$
+\end_inset
+
+ it holds that 
+\begin_inset Formula $X_{1},\dots,X_{n}\eqdist X_{k_{1}},\dots,X_{k_{n}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $\forall A_{1},\dots A_{n}\subseteq S$
+\end_inset
+
+ st 
+\begin_inset Formula $A_{i}$
+\end_inset
+
+ are measureable and 
+\begin_inset Formula $\forall\pi\in S_{n}$
+\end_inset
+
+ it holds that 
+\begin_inset Formula 
+\begin{align*}
+\Pr\left(X_{1}\in A_{1},\dots,X_{n}\in A_{n}\right) & =\Pr\left(X_{\pi\left(1\right)}\in A_{1},\dots,X_{\pi\left(n\right)}\in A_{n}\right)\\
+ & =\Pr\left(X_{1}\in A_{\pi\left(1\right)},\dots,X_{n}\in A_{\pi\left(n\right)}\right).
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+That 
+\begin_inset Formula $2$
+\end_inset
+
+ implies 
+\begin_inset Formula $1$
+\end_inset
+
+ is a consequence of the Kolmogorov extension theorem.
+\end_layout
+
+\begin_layout Standard
+Our short term goal is an explanation of de Finetti's representation theorem.
+ This is going to require a careful statement of what it means for a set
+ of random variables to be conditionally i.i.d.
+ We first give the unconditional definition as a warm up,
+\end_layout
+
+\begin_layout Definition
+A set 
+\begin_inset Formula $X_{1},X_{2},\dots$
+\end_inset
+
+ of random variables defined on 
+\begin_inset Formula $S$
+\end_inset
+
+ is independent if for all measurable 
+\begin_inset Formula $A_{1},\dots A_{n}\in S$
+\end_inset
+
+ it holds that
+\begin_inset Formula $\Pr\left(X_{1}\in A_{1},\dots,X_{n}\in A_{n}\right)=\prod_{i=1}^{n}\Pr\left(X_{i}\in A_{i}\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout --Separator--
+
+\end_layout
+
+\begin_layout Definition
+A set 
+\begin_inset Formula $X_{1},X_{2},\dots$
+\end_inset
+
+ of random variables defined on 
+\begin_inset Formula $S$
+\end_inset
+
+ is independently identically distributed (iid) if for all measurable 
+\begin_inset Formula $A_{1},\dots A_{n}\in S$
+\end_inset
+
+ it holds that
+\begin_inset Formula $\Pr\left(X_{1}\in A_{1},\dots,X_{n}\in A_{n}\right)=\prod_{i=1}^{n}\Pr\left(X_{1}\in A_{i}\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Conditional independence is nearly identical notationally but conceptually
+ trickier.
+ The key point is that if 
+\begin_inset Formula $\theta:S\rightarrow T$
+\end_inset
+
+ is some random variable than 
+\begin_inset Formula $\Pr\left(X_{1}\in A|\theta\right)$
+\end_inset
+
+ is itself a random variable (mapping from 
+\begin_inset Formula $S$
+\end_inset
+
+ to 
+\begin_inset Formula $\left[0,1\right]$
+\end_inset
+
+).
+ Indeed, we can define a random measure 
+\begin_inset Formula $\nu_{1}^{\theta}$
+\end_inset
+
+
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Formula $\sigma\left(S\right)$
+\end_inset
+
+ denotes the sigma algebra of 
+\begin_inset Formula $S$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+ on 
+\begin_inset Formula $S$
+\end_inset
+
+ by taking 
+\begin_inset Formula $\nu_{1}^{\theta}\left(A\right)=\Pr\left(X_{1}\in A|\theta\right)$
+\end_inset
+
+ for all 
+\begin_inset Formula $A\in\sigma\left(S\right)$
+\end_inset
+
+.
+ Any particular realization of this random variable is a measure on 
+\begin_inset Formula $S$
+\end_inset
+
+ and 
+\begin_inset Formula $\nu_{1}^{\theta}$
+\end_inset
+
+ is a measurable function from the domain of theta to the space of measures
+ on 
+\begin_inset Formula $S$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Definition
+A set 
+\begin_inset Formula $X_{1},X_{2},\dots$
+\end_inset
+
+ of random variables defined on 
+\begin_inset Formula $S$
+\end_inset
+
+ is independent conditional on random variable 
+\begin_inset Formula $\theta$
+\end_inset
+
+ if for all measurable 
+\begin_inset Formula $A_{1},\dots A_{n}\in S$
+\end_inset
+
+ it holds that
+\begin_inset Formula $\Pr\left(X_{1}\in A_{1},\dots,X_{n}\in A_{n}|\theta\right)=\prod_{i=1}^{n}\Pr\left(X_{i}\in A_{i}|\theta\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout --Separator--
+
+\end_layout
+
+\begin_layout Definition
+A set 
+\begin_inset Formula $X_{1},X_{2},\dots$
+\end_inset
+
+ of random variables defined on 
+\begin_inset Formula $S$
+\end_inset
+
+ is independently identically distributed (iid) conditional on random variable
+ 
+\begin_inset Formula $\theta$
+\end_inset
+
+ if for all measurable 
+\begin_inset Formula $A_{1},\dots A_{n}\in S$
+\end_inset
+
+ it holds that
+\begin_inset Formula $\Pr\left(X_{1}\in A_{1},\dots,X_{n}\in A_{n}|\theta\right)=\prod_{i=1}^{n}\Pr\left(X_{1}\in A_{i}|\theta\right)=\prod_{i=1}^{n}\nu_{1}^{\theta}\left(A_{i}\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Notice that, in contrast to the unconditional case, these definitions deal
+ with the equality of 
+\emph on
+random variables
+\emph default
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Also notice that many different random variables 
+\begin_inset Formula $\theta$
+\end_inset
+
+ can result in the same random measure 
+\begin_inset Formula $\nu^{\theta}$
+\end_inset
+
+.
+ For example, suppose we were interested in conditioning on a normally distribut
+ed random variable with fixed variance 
+\begin_inset Formula $\Lambda$
+\end_inset
+
+ and random mean 
+\begin_inset Formula $K+L$
+\end_inset
+
+.
+ In this case we might take 
+\begin_inset Formula $\theta=\left(K,L\right)$
+\end_inset
+
+.
+ However, we might instead have chosen distinct random variables 
+\begin_inset Formula $W$
+\end_inset
+
+ and 
+\begin_inset Formula $Z$
+\end_inset
+
+ such that 
+\begin_inset Formula $K+L=W+Z$
+\end_inset
+
+ and conditioned on random variable 
+\begin_inset Formula $\tilde{\theta}=\left(W,Z\right)$
+\end_inset
+
+.
+ For this model 
+\begin_inset Formula 
+\[
+\Pr\left(X_{1}\in A|\theta\right)=\Pr\left(X_{1}\in A|\tilde{\theta}\right)\ \forall\mbox{ measureable }A\subseteq S
+\]
+
+\end_inset
+
+and the corresponding random measures 
+\begin_inset Formula $\nu^{\theta}$
+\end_inset
+
+ and 
+\begin_inset Formula $\nu^{\tilde{\theta}}$
+\end_inset
+
+ are equal.
+ This suggests an obvious cannonical choice of random variable to condition
+ on: the random measure 
+\begin_inset Formula $\nu$
+\end_inset
+
+ itself.
+ That is, we have
+\begin_inset Formula 
+\begin{align*}
+\nu^{\theta}=\nu^{\tilde{\theta}} & =\nu\mbox{ and }\\
+\Pr\left(X_{1}\in A|\theta\right)=\Pr\left(X_{1}\in A|\tilde{\theta}\right) & =\Pr\left(X_{1}\in A|\nu\right)\forall\mbox{ measureable }A\subseteq S
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+de Finetti's Representation Theorem
+\end_layout
+
+\begin_layout Standard
+Notice that if the set 
+\begin_inset Formula $X_{1},X_{2},\dots$
+\end_inset
+
+ is iid conditional on the random measure 
+\begin_inset Formula $\nu$
+\end_inset
+
+ then
+\begin_inset Formula 
+\begin{align*}
+\Pr\left(X_{1}\in A_{1},\dots X_{n}\in A_{n}\right) & =\mathbb{E}_{\nu}\left[\Pr\left(X_{1}\in A_{1},\dots X_{n}\in A_{n}|\nu\right)\right]\\
+ & =\mathbb{E}_{\nu}\left[\prod_{i=1}^{n}\nu\left(A_{i}\right)\right],
+\end{align*}
+
+\end_inset
+
+from which it is immediately manifest that 
+\begin_inset Formula $X_{1},X_{2},\dots$
+\end_inset
+
+ is exchangeable.
+ That is, conditional iid implies exchangeability.
+ The remarkable content of de Finetti's eponymous theorem is that these
+ two things are in fact equivalent:
+\end_layout
+
+\begin_layout Theorem
+(de Finetti, Hewitt-Savage) Let 
+\begin_inset Formula $X_{1},X_{2},\dots$
+\end_inset
+
+ be an infinite sequence of random variables on 
+\begin_inset Formula $S$
+\end_inset
+
+.
+ The following are equivalent:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+X is exchangeable, ie.
+ 
+\begin_inset Formula $\left(X_{1},X_{2},\dots\right)\eqdist\left(X_{\pi\left(1\right)},X_{\pi\left(2\right)},\dots\right)\ \forall\pi\in S_{\infty}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+X is conditionally iid; ie.
+ there exists a random measure 
+\begin_inset Formula $\nu$
+\end_inset
+
+ such that 
+\begin_inset Formula $\forall n\in\mathbb{N}\ \Pr\left(X_{1}\in A_{1},\dots,X_{n}\in A_{n}|\nu\right)=\prod_{i=1}^{n}\nu\left(A_{i}\right)$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+This theorem is often alternatively phrased as saying that exchangeability
+ implies that 
+\begin_inset Formula $\forall n\in\mathbb{N}$
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\Pr\left(X_{1}\in A_{1},\dots,X_{n}\in A_{n}\right)=\int_{v}\prod_{i=1}^{n}v\left(A_{i}\right)\mu\left(dv\right),
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $\mu$
+\end_inset
+
+ is a measure on the space of random measures on 
+\begin_inset Formula $S$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+To build intuition for what this means lets consider a concrete example.
+ We can model flipping a (not necessarily fair) coin by assigning a random
+ variable 
+\begin_inset Formula 
+\[
+X_{i}=\begin{cases}
+0 & \mbox{tails}\\
+1 & \mbox{heads}
+\end{cases}
+\]
+
+\end_inset
+
+to the 
+\begin_inset Formula $i$
+\end_inset
+
+th flip.
+ An unconditional independence assumption is inappropriate for this situation:
+ if the coin is flipped once and comes up heads then, in the absence of
+ any relevant prior knowledge, we should bet that the second toss will also
+ be heads.
+ However, an exchangeability assumption is reasonable: we will base our
+ inferences on the number of observed heads and tails, but not on the order
+ in which they occured.
+ In the language of de Finetti's theorem we then have that
+\begin_inset Formula 
+\[
+\Pr\left(X_{1}=x_{1},\dots,X_{n}=x_{n}|\nu\right)=\prod_{i=1}^{n}\nu\left(x_{n}\right)
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $x_{j}\in\left\{ 0,1\right\} $
+\end_inset
+
+ and 
+\begin_inset Formula $\nu$
+\end_inset
+
+ is a random measure on 
+\begin_inset Formula $\left\{ 0,1\right\} $
+\end_inset
+
+.
+ In this particular instance the collection of random measures has a simple
+ parametric form: a realization of 
+\begin_inset Formula $\nu$
+\end_inset
+
+ is a Bernoulli distribution.
+ Since Bernoulli distributions are indexed by a single parameter 
+\begin_inset Formula $p\in\left[0,1\right]$
+\end_inset
+
+ we have a simple correspondence
+\begin_inset Formula 
+\begin{align*}
+\nu\in_{R}\left\{ \text{Bern}\left(p\right)\right\} _{p\in\left[0,1\right]} & \leftrightarrow\nu=\text{Bern}\left(p\right),\ p\in_{R}\left[0,1\right],\mbox{ whence}\\
+\Pr\left(X_{1}=x_{1},\dots,X_{n}=x_{n}\right) & =\int_{v}\prod_{i=1}^{n}v\left(x_{n}\right)\mu\left(dv\right)\\
+ & =\int_{\left[0,1\right]}\prod_{i=1}^{n}p^{x_{i}}\left(1-p\right)^{1-x_{i}}F\left(dp\right)\\
+ & =\int_{\left[0,1\right]}p^{S}\left(1-p\right)^{n-S}F\left(dp\right),\ S=\sum_{i=1}^{n}X_{i}.
+\end{align*}
+
+\end_inset
+
+This recovers the familiar treatment of repeated flips of a biased coin
+ given in introductory probability courses: conditional on the 
+\begin_inset Quotes eld
+\end_inset
+
+propensity
+\begin_inset Quotes erd
+\end_inset
+
+ 
+\begin_inset Formula $p$
+\end_inset
+
+ of the coin the number of heads in 
+\begin_inset Formula $n$
+\end_inset
+
+ flips is 
+\begin_inset Formula $\text{Bin}\left(n,p\right)$
+\end_inset
+
+.
+ If we do not know the parameter 
+\begin_inset Formula $p$
+\end_inset
+
+ then we must integrate it out.
+ 
+\end_layout
+
+\begin_layout Standard
+de Finetti's theorem can enable very powerful models even in cases where
+ the random measure 
+\begin_inset Formula $\nu$
+\end_inset
+
+ lacks a simple form, or even a finite dimensional representation.
+ Dirichlet process models (eg.
+ DP mixture models) are a well developed example of this.
+\end_layout
+
+\begin_layout Section
+Exchangeable Graphs and Arrays
+\end_layout
+
+\begin_layout Standard
+We now turn to the treatment of exchangeable arrays.
+ Here we'll be dealing with random variables 
+\begin_inset Formula $X_{ij}$
+\end_inset
+
+ that we think of as representing some (symmetric) relation between units
+ 
+\begin_inset Formula $i$
+\end_inset
+
+ and 
+\begin_inset Formula $j$
+\end_inset
+
+.
+ These can generally be thought of as edges of some graph.
+ We are interested in infinite exchangeable arrays of these things, with
+ the exposition of the corresponding representation theorem as our goal
+ for this section.
+\end_layout
+
+\begin_layout Definition
+A random array 
+\begin_inset Formula $X=\left\{ X_{ij}\right\} _{i,j\in\mathbb{N}}$
+\end_inset
+
+ is 
+\emph on
+jointly exchangeable
+\emph default
+ if for every permutation 
+\begin_inset Formula $\pi$
+\end_inset
+
+ of 
+\begin_inset Formula $\mathbb{N}$
+\end_inset
+
+,
+\begin_inset Formula 
+\[
+\left\{ X_{ij}\right\} _{i,j\in\mathbb{N}}\eqdist\left\{ X_{\pi\left(i\right)\pi\left(j\right)}\right\} _{i,j\in\mathbb{N}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+To build some intution we consider a series of examples:
+\end_layout
+
+\begin_layout Example
+\begin_inset Formula $X_{ij}=0$
+\end_inset
+
+ for 
+\begin_inset Formula $i<j$
+\end_inset
+
+ is trivially jointly exchangeable, since every distinct pair of units is
+ disconnected.
+\end_layout
+
+\begin_layout --Separator--
+
+\end_layout
+
+\begin_layout Example
+\begin_inset Formula $X_{ij}=(j-i)\mod2$
+\end_inset
+
+ is not jointly exchangeable, since eg.
+ TODO: figure
+\end_layout
+
+\begin_layout --Separator--
+
+\end_layout
+
+\begin_layout Example
+\begin_inset Formula $X_{ij}\overset{iid}{\sim}\mbox{Bern}\left(p\right)$
+\end_inset
+
+ is jointly exchangeable.
+\end_layout
+
+\begin_layout --Separator--
+
+\end_layout
+
+\begin_layout Example
+\begin_inset Formula $X_{ij}|p\overset{iid}{\sim}\mbox{Bern}\left(p\right)$
+\end_inset
+
+ is jointly exchangeable.
+\end_layout
+
+\begin_layout --Separator--
+
+\end_layout
+
+\begin_layout Example
+\begin_inset CommandInset label
+LatexCommand label
+name "theta-random-ex"
+
+\end_inset
+
+
+\begin_inset Formula $X_{ij}|\boldsymbol{N}\overset{iid}{\sim}\mbox{Bern}\left(\sigma\left(\langle N_{i},N_{j}\rangle\right)\right)$
+\end_inset
+
+, where 
+\begin_inset Formula $N_{i}\overset{iid}{\sim}N\left(\mu,\Lambda\right)$
+\end_inset
+
+, 
+\begin_inset Formula $\langle,\rangle$
+\end_inset
+
+ denotes inner product and 
+\begin_inset Formula $\sigma:\mathbb{R}\rightarrow\left[0,1\right]$
+\end_inset
+
+.
+ This model is also exchangeable.
+ (nb.
+ this is closely related to the eigenmodel).
+\end_layout
+
+\begin_layout Standard
+To state the representation theorem corresponding to this flavour of exchangeabi
+lity we will need one final definition:
+\end_layout
+
+\begin_layout Definition
+Let 
+\begin_inset Formula $U_{1},U_{2},\dots$
+\end_inset
+
+ be iid uniform random variables in 
+\begin_inset Formula $\left[0,1\right]$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $\Theta:\left[0,1\right]^{2}\rightarrow\left[0,1\right]$
+\end_inset
+
+ be a symmetric measurable function and let 
+\begin_inset Formula 
+\[
+X_{ij}=1\mbox{ with probability }\Theta\left(U_{i},U_{j}\right)
+\]
+
+\end_inset
+
+independently for all 
+\begin_inset Formula $i<j\in\mathbb{N}$
+\end_inset
+
+.
+ A 
+\emph on
+
+\begin_inset Formula $\Theta$
+\end_inset
+
+-random graph
+\emph default
+ is an array with the same distribution as 
+\begin_inset Formula $X$
+\end_inset
+
+.
+ A 
+\emph on
+graphon
+\emph default
+ is a symmetric measurable function from 
+\begin_inset Formula $\left[0,1\right]^{2}$
+\end_inset
+
+ to 
+\begin_inset Formula $\left[0,1\right]$
+\end_inset
+
+.
+ See TODO: figure
+\end_layout
+
+\begin_layout Standard
+Example 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "theta-random-ex"
+
+\end_inset
+
+ is an example of a 
+\begin_inset Formula $\Theta$
+\end_inset
+
+-random graph, with 
+\begin_inset Formula 
+\[
+\Theta\left(\cdot,\cdot\right)=\sigma\left(\langle\Phi^{-1}\left(\cdot\right),\Phi^{-1}\left(\cdot\right)\rangle\right),
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $\Phi^{-1}\left(\cdot\right)$
+\end_inset
+
+ is the pseudo-inverse of the 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $N\left(\mu,\Lambda\right)$
+\end_inset
+
+ cumulative distribution function.
+ That is, 
+\begin_inset Formula $\Phi^{-1}\left(\cdot\right)$
+\end_inset
+
+ is the function such that 
+\begin_inset Formula $\Phi^{-1}\left(U_{i}\right)\eqdist N_{i}$
+\end_inset
+
+ where 
+\end_layout
+
+\end_body
+\end_document
