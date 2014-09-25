@@ -126,7 +126,7 @@ theorems-ams-extended
 
 \begin_layout Standard
 \begin_inset FormulaMacro
-\renewcommand{\eqdist}{\overset{d}{=}}
+\newcommand{\eqdist}{\overset{d}{=}}
 \end_inset
 
 
@@ -294,8 +294,8 @@ th day.
 
 .
  The physical content of this equation is that the absolute values of the
- labeling indices are not significant, only the distance between them matters;
- i.e.
+ labelling indices are not significant, only the distance between them matters;
+ ie.
  it does not matter if the calendar starts at day 
 \begin_inset Formula $0$
 \end_inset
@@ -354,7 +354,7 @@ x_{AB} & x_{BC} & x_{BB}
 
 \end_inset
 
-i.e.
+ie.
  that the distribution is invariant under swapping the labels 
 \begin_inset Formula $B$
 \end_inset
@@ -469,7 +469,7 @@ For all permutations
 \begin_inset Formula $A_{i}$
 \end_inset
 
- are measurable and 
+ are measureable and 
 \begin_inset Formula $\forall\pi\in S_{n}$
 \end_inset
 
@@ -741,7 +741,7 @@ and the corresponding random measures
 \end_inset
 
  are equal.
- This suggests an obvious canonical choice of random variable to condition
+ This suggests an obvious cannonical choice of random variable to condition
  on: the random measure 
 \begin_inset Formula $\nu$
 \end_inset
@@ -806,7 +806,7 @@ from which it is immediately manifest that
 
 \begin_deeper
 \begin_layout Enumerate
-X is exchangeable, i.e.
+X is exchangeable, ie.
  
 \begin_inset Formula $\left(X_{1},X_{2},\dots\right)\eqdist\left(X_{\pi\left(1\right)},X_{\pi\left(2\right)},\dots\right)\ \forall\pi\in S_{\infty}$
 \end_inset
@@ -815,7 +815,7 @@ X is exchangeable, i.e.
 \end_layout
 
 \begin_layout Enumerate
-X is conditionally iid; i.e.
+X is conditionally iid; ie.
  there exists a random measure 
 \begin_inset Formula $\nu$
 \end_inset
@@ -879,7 +879,7 @@ th flip.
  be heads.
  However, an exchangeability assumption is reasonable: we will base our
  inferences on the number of observed heads and tails, but not on the order
- in which they occurred.
+ in which they occured.
  In the language of de Finetti's theorem we then have that
 \begin_inset Formula 
 \[
@@ -959,7 +959,7 @@ de Finetti's theorem can enable very powerful models even in cases where
 \end_inset
 
  lacks a simple form, or even a finite dimensional representation.
- Dirichlet process models (e.g.
+ Dirichlet process models (eg.
  DP mixture models) are a well developed example of this.
 \end_layout
 
@@ -1018,7 +1018,7 @@ jointly exchangeable
 \end_layout
 
 \begin_layout Standard
-To build some intuition we consider a series of examples:
+To build some intution we consider a series of examples:
 \end_layout
 
 \begin_layout Example
@@ -1041,7 +1041,7 @@ To build some intuition we consider a series of examples:
 \begin_inset Formula $X_{ij}=(j-i)\mod2$
 \end_inset
 
- is not jointly exchangeable, since e.g.
+ is not jointly exchangeable, since eg.
  TODO: figure
 \end_layout
 
@@ -1219,7 +1219,7 @@ where
 \end_inset
 
 .
- This example makes it clear that the choice of uniformly random variables
+ This example makes it clear that the choice of uniformly random varibles
  in the definition of 
 \begin_inset Formula $\Theta$
 \end_inset
